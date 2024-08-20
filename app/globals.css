@@ -1,33 +1,22 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@tailwind base; /* 기본으로 tailwind와 생성된 reset.css 같은 개념 */
+@tailwind components; /*  */
+@tailwind utilities; /* e.g. bg-gray-500 */
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+@layer base {
+  /* 확장 시키는 개념 */
+  a {
+    @apply text-blue-500;
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+@layer utilities {
+  .text-bigger-hello {
+    @apply text-3x font-semibold;
+  }
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+@layer components {
+  .btn {
+    @apply w-full bg-black h-10 rounded-sexy-name mt-tomato text-white; /* how cool is that? */
   }
 }

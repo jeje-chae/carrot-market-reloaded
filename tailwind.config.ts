@@ -1,20 +1,24 @@
-import type { Config } from "tailwindcss";
+import type { Config } from 'tailwindcss';
 
 const config: Config = {
   content: [
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    './pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      margin: {
+        tomato: '120px',
+      },
+      borderRadius: {
+        'sexy-name': '11.11px',
       },
     },
   },
-  plugins: [],
+  plugins: [
+    //누군가가 미리 만들어놓은 components나 utility를 쓰고 싶을 때 설치해서 사용
+    require('@tailwindcss/forms'),
+  ],
 };
 export default config;

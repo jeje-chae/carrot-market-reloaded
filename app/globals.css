@@ -4,19 +4,4 @@
 
 @layer base {
   /* 확장 시키는 개념 */
-  a {
-    @apply text-blue-500;
-  }
-}
-
-@layer utilities {
-  .text-bigger-hello {
-    @apply text-3x font-semibold;
-  }
-}
-
-@layer components {
-  .btn {
-    @apply w-full bg-black h-10 rounded-sexy-name mt-tomato text-white; /* how cool is that? */
-  }
 }

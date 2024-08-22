@@ -1,36 +1,37 @@
-import FormButton from '@/components/form-btn';
-import FromInput from '@/components/form-input';
+'use client';
+import Button from '@/components/button';
+import Input from '@/components/input';
 import SocailLogin from '@/components/social-login';
+import { useFormState } from 'react-dom';
+import { logIn } from './actions';
+import { PASSWORD_MIN_LENGTH } from '@/lib/constants';
 
 export default function LogIn() {
-  const onClick = async () => {
-    const response = await fetch('www/users', {
-      method: 'POST',
-      body: JSON.stringify({
-        username: 'nico',
-        password: '1234',
-      }),
-    });
-    console.log(await response.json());
-  };
+  const [state, dispatch] = useFormState(logIn, null);
   return (
     <div className='flex flex-col gap-10 py-8 px-6'>
       <div className='flex flex-col gap-2 *:font-medium'>
         <h1 className='text-2xl'>안녕하세요!</h1>
         <h2 className='text-xl'>Log in with email and password.</h2>
       </div>
-      <form className='flex flex-col gap-3' action=''>
-        <FromInput type='email' placeholder='Email' required errors={['']} />
-        <FromInput
+      <form className='flex flex-col gap-3' action={dispatch}>
+        <Input
+          name='email'
+          type='email'
+          placeholder='Email'
+          required
+          errors={state?.fieldErrors.email}
+        />
+        <Input
+          name='password'
           type='password'
           placeholder='Password'
+          minLength={PASSWORD_MIN_LENGTH}
+          errors={state?.fieldErrors.password}
           required
-          errors={['']}
         />
+        <Button text='Log in' />
       </form>
-      <span onClick={onClick}>
-        <FormButton loading={false} text='Log in' />
-      </span>
       <SocailLogin />
     </div>
   );

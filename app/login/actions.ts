@@ -56,7 +56,7 @@ export async function logIn(prevState: any, formData: FormData) {
         password: true,
       },
     });
-    const ok = await bcrypt.compare(result.data.password, user!.password ?? '');
+    const ok = await bcrypt.compare(result.data.password, user!.password ?? ''); // 처음에 암호화 했기때문에 복화화
     // log the user in
     if (ok) {
       const session = await getSession();

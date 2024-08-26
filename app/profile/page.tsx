@@ -28,6 +28,7 @@ export default async function Profile() {
   return (
     <div>
       <h1>Welcome! d{user?.username}!</h1>
+      {/* form 안에 버튼 하나만 존재할 때는 버튼을 클릭 할 때마다 form을 제출 */}
       <form action={logOut}>
         <button>Log out</button>
       </form>

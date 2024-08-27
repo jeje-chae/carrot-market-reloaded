@@ -1,6 +1,6 @@
 import db from '@/lib/db';
 import getSession from '@/lib/session';
-import { notFound, redirect } from 'next/navigation';
+import { redirect } from 'next/navigation';
 
 async function getUser() {
   const session = await getSession();
@@ -14,7 +14,7 @@ async function getUser() {
       return user;
     }
   }
-  notFound();
+  //notFound();
 }
 
 export default async function Profile() {

@@ -16,12 +16,11 @@ export default function ListProduct({
   photo,
   id,
 }: ListProductProps) {
-  console.log(title);
   return (
     <Link href={`/products/${id}`} className='flex gap-5'>
       <div className='relative size-28 rounded-md overflow-hidden'>
-        <Image fill src={photo} alt={title} />
-        {/* 만약 이미지의 크기를 모른다면 fill로 넣으면 부모의 크기를 꽉 채움 */}
+        <Image fill src={photo} alt={title} className='object-cover' />
+        {/* 만약 이미지의 크기를 모른다면 fill로 넣으면 부모의 크기를 꽉 채움 - 이미지가 찌그러짐 (css로 해결) */}
       </div>
       <div className='flex flex-col gap-1 *:text-white'>
         <span className='text-lg'>{title}</span>

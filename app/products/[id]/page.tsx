@@ -5,6 +5,7 @@ import { UserIcon } from '@heroicons/react/24/solid';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { unstable_cache as nextCache } from 'next/cache';
 
 async function getIsOwner(userId: number) {
   const session = await getSession();
@@ -28,6 +29,41 @@ async function getProduct(id: number) {
     },
   });
   return product;
+
+  // 만약 fetch를 이용해서 api로 get requests 할 때는 자동으로 cache된다.
+  // fetch(`/api/products/${id}`, {
+  //   next: {
+  //     revalidate: 60,
+  //     tags: ['helloooo'],
+  //   },
+  // });
+}
+
+const getCachedProduct = nextCache(getProduct, ['product-detail'], {
+  tags: ['product-detail'],
+});
+
+async function getProductTitle(id: number) {
+  const product = await db.product.findUnique({
+    where: {
+      id,
+    },
+    select: {
+      title: true,
+    },
+  });
+  return product;
+}
+
+const getCachedProductTitle = nextCache(getProductTitle, ['product-title'], {
+  tags: ['product-title', 'foodie'],
+});
+
+export async function generateMetadata({ params }: { params: { id: string } }) {
+  const product = await getCachedProductTitle(Number(params.id));
+  return {
+    title: product?.title,
+  };
 }
 
 export default async function ProductDetail({
@@ -39,7 +75,7 @@ export default async function ProductDetail({
   if (isNaN(id)) {
     return notFound();
   }
-  const product = await getProduct(id);
+  const product = await getCachedProduct(id);
   if (!product) {
     return notFound();
   }

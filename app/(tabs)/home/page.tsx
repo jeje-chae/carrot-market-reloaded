@@ -37,6 +37,9 @@ export const metadata = {
 // 세번째 인자는 cache의 expiration time(ms)인데 만약 이 시간이 지나지 않은 상태에서 user가 리프레시를 해서 이 함수를 호출하면 cache에서 data를 return하지만 이 시간이 지났을 경우에는 첫번째 인자로 받은 함수를 다시 호출합니다. {revalidate: 60,}
 const getCachedProducts = nextCache(getInitialProducts, ['home-poducts']);
 
+//export const dynamic = 'force-dynamic';
+export const revalidate = 60;
+
 export default async function Products() {
   const initialProducts = await getCachedProducts();
   const revalidate = async () => {

@@ -1,6 +1,7 @@
 import db from '@/lib/db';
 import getSession from '@/lib/session';
-import { redirect } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
+import { Suspense } from 'react';
 
 async function getUser() {
   const session = await getSession();
@@ -14,7 +15,13 @@ async function getUser() {
       return user;
     }
   }
-  //notFound();
+  notFound();
+}
+
+async function Username() {
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  const user = await getUser();
+  return <h1>Wlcome! {user?.username}!</h1>;
 }
 
 export default async function Profile() {
@@ -27,7 +34,9 @@ export default async function Profile() {
   };
   return (
     <div>
-      <h1>Welcome! d{user?.username}!</h1>
+      <Suspense fallback={'hello'}>
+        <Username />
+      </Suspense>
       {/* form 안에 버튼 하나만 존재할 때는 버튼을 클릭 할 때마다 form을 제출 */}
       <form action={logOut}>
         <button>Log out</button>
